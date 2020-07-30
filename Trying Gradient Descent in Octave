@@ -1,0 +1,16 @@
+function theta = gd (X, y, alpha, theta, n)
+	m = length(y);
+	k = length(X(1, :));
+	for iter = 1:n
+		w = zeros(m, k);
+		for r = 1:m
+			w(r, :) = (dot(theta,X(r,:)) - y(r))*X(r,:);
+		end;
+		if length(w) == 1
+			theta = theta - alpha*(1/m)*w;
+		end;
+		if length(w) > 1
+			w = sum(w);
+			theta = theta - alpha*(1/m)*w';
+		end;
+	end;
