@@ -1,0 +1,17 @@
+function [cost, theta, normal] = LogisticModel(x, y, theta, alpha, num);
+  m = length(y);
+  cost = zeros(num, 1);
+  x = [ones(m, 1), x];
+  function [sigmoid] = sigmoid(x, theta);
+    sigmoid = 1./(1 + exp(-x*theta));
+  endfunction
+  for iter = 1:num;
+    theta = theta - alpha/m*(x'*(sigmoid(x, theta) - y));
+    cost(iter) = 1/m*(-log((sigmoid(x,theta))')*y - log(1 - (sigmoid(x,theta))')*(1 - y));
+  endfor
+  normal = pinv(x'*x)*x'*y;
+  t = 1:num;
+  figure(1): plot(t, cost, '-','LineWidth', 1, 'color', 'blue');
+  xlabel('Number of Iteration');
+  ylabel('Cost function');
+endfunction
