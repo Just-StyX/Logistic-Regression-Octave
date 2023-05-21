@@ -1,1 +1,1 @@
-# jAy
+#  Logistic Regression in Octave
